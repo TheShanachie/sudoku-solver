@@ -1,13 +1,12 @@
 package com.github.theshanachie;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SudokuIO {
-    public String[] readRawFromFile( String path ) throws IOException
+    public Integer[][] readFromFile( String path ) throws IOException
     {
         try {
             // create scanner and return object
@@ -32,40 +31,84 @@ public class SudokuIO {
 
             // close scanner and return.
             input.close();
-            return result;
+            return parseInputStrArr( result );
         } catch (FileNotFoundException ex) {
             throw new IOException("File: \"" + path + "\" not found.", ex);
+        } catch (Exception ex) {
+            throw new IOException("Problem reading from File: \"" + path + "\"", ex);
         }
     }
 
-    public char[][] parseInputStrArr( String[]  board )
+    public Integer[][] parseInputStrArr( String[] board ) throws Exception
     {
-        return null;
+        try {
+            Integer[][] output = new Integer[9][9];
+            for (int i = 0; i < 9; i++) {
+                String str = board[i];
+                Integer[] line = new Integer[9];
+                for (int j = 0; j < 9; j++) {
+                    if (Character.getType(str.charAt(j)) == Character.DECIMAL_DIGIT_NUMBER) {
+                        line[j] = str.charAt(j) - '0';
+                    } else {
+                        line[j] = -1;
+                    }
+                }
+                output[i] = line;
+            }
+            return output;
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
     }
 
-    public boolean printToFile( String path, String prefix, char[][] board )
+    public boolean writeToFile( String path, Integer[][] board )
     {
         try {
             File file = new File(path);
-            if (!path.startsWith(prefix)) return false;
             if (!file.canWrite()) return false;
 
-            FileWriter out = new FileWriter( file );
-            for (int i = 0; i < board.length; i++) {
-                out.write( board[i] );
+            BufferedWriter out = new BufferedWriter(new FileWriter(file, false));
+            for (Integer[] arr : board)
+            {
+                List<String> strings = new LinkedList<>();
+                for (Integer val: arr) {
+                    if (val == -1) strings.add("#");
+                    else strings.add(Integer.toString(val));
+                }
+                String line = String.join("", strings);
+                out.write( line );
+                out.newLine();
             }
             out.close();
             return true;
 
         } catch (NullPointerException ex) {
+            ex.printStackTrace();
             return false;
         } catch (IOException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
 
-    public String[] buildOutputStrArr( char[][] board )
+    public void printSudoku( Integer[][] board )
     {
-        return null;
+        System.out.println();
+        System.out.println("Printing sudoku board...");
+        if (board == null) {
+            System.out.println("Null parameter passed to Function: \"printSudoku\"");
+            return;
+        }
+        for (int i = 0; i < board.length; i++) {
+            if (board[i] == null) {
+                System.out.println("Null row in board passed to Function: \"printSudoku\"");
+                return;
+            }
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] != -1) System.out.print(board[i][j].toString());
+                System.out.print(",");
+            }
+            System.out.println();
+        }
     }
 }
