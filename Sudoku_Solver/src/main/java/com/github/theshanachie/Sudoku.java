@@ -1,15 +1,14 @@
 package com.github.theshanachie;
 
-import java.lang.invoke.SwitchPoint;
 import java.util.*;
 
 public class Sudoku {
     public record Variable (
-        Integer row,
-        Integer col,
-        Integer[] domain
+            Integer row,
+            Integer col,
+            Integer[] domain
     ) {}
-
+    
     /**
      * Solve the given sudoku board with a given mode signifying how the program will solve the puzzle.
      * @param board is a 2D Integer object array holding the sudoku board.
@@ -18,20 +17,23 @@ public class Sudoku {
      */
     public boolean solve(Integer[][] board, String mode)
     {
-        switch (mode) {
-            case "MRV":
-                System.out.println("Using backtracking with minimum remaining values (MRV)");
-                return solveSudokuMRV(board);
-            case "LCV":
-                System.out.println("Using backtracking with least constraining values (LCV)");
-                return false;
-            default:
-                System.out.println("Using simple backtracking");
-                return solveSudokuBase(board);
-        }
+        return switch (mode) {
+            case "MRV" -> {
+                System.out.println("Using backtracking with minimum remaining values (MRV).");
+                yield solveSudokuMRV(board);
+            }
+            case "LCV" -> {
+                System.out.println("Using backtracking with minimum remaining values and least constraining values (LCV).");
+                yield solveSudokuLCV(board);
+            }
+            default -> {
+                System.out.println("Using simple backtracking for solution.");
+                yield solveSudokuBase(board);
+            }
+        };
     }
 
-    public boolean solveSudokuBase(Integer[][] board){
+    public boolean solveSudokuBase(Integer[][] board) {
         // check if the board is complete.
         if (isComplete(board)) return true;
 
@@ -85,6 +87,24 @@ public class Sudoku {
 
     public boolean solveSudokuLCV(Integer[][] board)
     {
+        // check if solution
+        if (isComplete(board)) return true;
+        Variable var = getMRVVariable(board);
+
+        // iterate through the variables domain
+        for (Integer value : orderDomainByLCV(board, var))
+        {
+            // try to assign the value
+            board[var.row][var.col] = value;
+            if (isValid(board, var.row, var.col)) {
+                board[var.row][var.col] = value;
+
+                if (solveSudokuMRV(board)) { return true; }
+                else { board[var.row][var.col] = -1; }
+            } else {
+                board[var.row][var.col] = -1;
+            }
+        }
         return false;
     }
 
@@ -108,8 +128,54 @@ public class Sudoku {
     }
 
     public Variable getVariable(Integer[][] board, int row, int col) {
+        return new Variable(row, col, getDomain(board, row, col));
+    }
+
+    /* **** ***** ***** ***** ***** ***** ***** ***** ***** **** */
+    /* -- Least Constraining Value Func. ------------------------*/
+    /* **** ***** ***** ***** ***** ***** ***** ***** ***** **** */
+
+    public Integer[] orderDomainByLCV(Integer[][] board, Variable variable) {
+        SortedMap<Integer, Integer> map = new TreeMap<>();
+        for (int val : variable.domain) {
+            map.put(val, domainConstraint(board, variable.row, variable.col, val));
+        }
+
+        Integer[] myArray = new Integer[map.size()];
+        return map.keySet().toArray(myArray);
+    }
+
+    public int domainConstraint(Integer[][] board, int row, int col, int value) {
+        int constraint = 0;
+        Set<Variable> set = new HashSet<>();
+
+        // Check constraints in row and colum.
+        for (int i = 0; i < 9; i++) {
+            set.add( getVariable(board, row, i) );
+            set.add( getVariable(board, i, col) );
+        }
+
+        // Add the values for the current box.
+        int c = col - col % 3;
+        int r = row - row % 3;
+        for (int i = r; i < r + 3; i++) {
+            for (int j = c; j < c + 3; j++) {
+                set.add( getVariable(board, r, c) );
+            }
+        }
+
+        // add all constraint lengths to return value.
+        for (Variable var: set) {
+            constraint += var.domain.length;
+        }
+
+        // return the sum of the constraints
+        return constraint;
+    }
+
+    public Integer[] getDomain(Integer[][] board, int row, int col) {
         Set<Integer> set = new HashSet<Integer>();
-        set.addAll(Arrays.asList( new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }));
+        set.addAll(Arrays.asList( new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 } ));
 
         // Add the values in the row and column.
         for (int i = 0; i < 9; i++) {
@@ -127,15 +193,8 @@ public class Sudoku {
         }
 
         // return the set values as an array.
-        Integer[] myArray = new Integer[set.size()];
-        return new Variable(row, col, set.toArray(myArray));
+        return set.toArray( new Integer[0] );
     }
-
-    /* **** ***** ***** ***** ***** ***** ***** ***** ***** **** */
-    /* -- Least Constraining Value Func. ------------------------*/
-    /* **** ***** ***** ***** ***** ***** ***** ***** ***** **** */
-
-    public int leastConstrainingValue(Integer[][] board, int row, int col) { return -1; }
 
     /* **** ***** ***** ***** ***** ***** ***** ***** ***** **** */
     /* -- Constraint Checking -----------------------------------*/

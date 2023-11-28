@@ -9,6 +9,9 @@ public class SudokuIO {
     public Integer[][] readFromFile( String path ) throws IOException
     {
         try {
+            // Output to the user.
+            System.out.println("Attempting to read sudoku board from file: \"" + path + "\"");
+
             // create scanner and return object
             String[] result = new String[9];
             Scanner input = new Scanner( new File(path) );
@@ -65,6 +68,7 @@ public class SudokuIO {
     {
         try {
             File file = new File(path);
+            if(!file.exists() || file.isDirectory()) return false;
             if (!file.canWrite()) return false;
 
             BufferedWriter out = new BufferedWriter(new FileWriter(file, false));
@@ -93,7 +97,6 @@ public class SudokuIO {
 
     public void printSudoku( Integer[][] board )
     {
-        System.out.println();
         System.out.println("Printing sudoku board...");
         if (board == null) {
             System.out.println("Null parameter passed to Function: \"printSudoku\"");
