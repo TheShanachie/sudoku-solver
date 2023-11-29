@@ -1,4 +1,4 @@
-package com.github.theshanachie;
+package Sudoku_Solver_Submission;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SudokuIO {
-
     public Integer[][] readFromFile( String path ) throws IOException
     {
         try {
@@ -37,7 +36,7 @@ public class SudokuIO {
             input.close();
             return parseInputStrArr( result );
         } catch (FileNotFoundException ex) {
-            throw new IOException("File: \"" + path + "\" not found from context path: \"" + System.getProperty("user.dir") + "\"", ex);
+            throw new IOException("File: \"" + path + "\" not found.", ex);
         } catch (Exception ex) {
             throw new IOException("Problem reading from File: \"" + path + "\"", ex);
         }
