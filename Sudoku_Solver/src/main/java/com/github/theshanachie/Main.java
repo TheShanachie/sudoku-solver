@@ -18,18 +18,18 @@ public class Main {
             // Add the mode...
             if (args.length == 3) mode = args[2];
             else mode = "";
-//        } else if (args.length == 0) {
-//            try {
-//                InputIO in = new InputIO();
-//                ArrayList<String> input = in.readInput("src/main/resources/input.txt");
-//                read_path = input.get(0);
-//                write_path = input.get(1);
-//                mode = input.get(2);
-//            } catch (Exception ex) {
-//                System.out.println(ex.getMessage());
-//                System.out.println("Invalid Arguments to Program. Exiting Program.");
-//                return;
-//            }
+        } else if (args.length == 1) {
+            try {
+                InputIO in = new InputIO();
+                ArrayList<String> input = in.readInput(args[0]);
+                read_path = input.get(0);
+                write_path = input.get(1);
+                mode = input.get(2);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("Invalid Arguments to Program. Exiting Program.");
+                return;
+            }
         } else {
             // Exit the program.
             System.out.println("Invalid Program Argument Number. Exiting Program.");
