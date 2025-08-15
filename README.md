@@ -1,5 +1,7 @@
 # Sudoku Solver
 
+This project is a command-line Sudoku solver implemented in Java that uses constraint satisfaction techniques to solve puzzles of varying difficulty. It supports input via configuration files or direct command-line arguments, and can apply optimizations like Minimum Remaining Values (MRV) and Least Constraining Values (LCV) to improve performance. The solver reads boards from text files, displays solutions, and writes results to output files, with runtime benchmarks provided for each optimization strategy. The codebase is modular, with dedicated classes for input handling, board management, and solving logic, making it extensible and easy to maintain.
+
 ## Organization
 
 The program consists of four major java files. In addition, directories containing pre-built sudoku boards are provided. These directories include easy, medium, hard, expert, and master unsolved sudoku boards. From the directory root…
