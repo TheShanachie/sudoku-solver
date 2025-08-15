@@ -46,9 +46,6 @@ main
     ├── s0.txt
     ├── s1.txt
     └── s2.txt
-
-test
-└── java
 ```
 # User Manual
 
