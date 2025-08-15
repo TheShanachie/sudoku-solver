@@ -1,6 +1,6 @@
-Sudoku Solver
+# Sudoku Solver
 
-# Organization
+## Organization
 
 The program consists of four major java files. In addition, directories containing pre-built sudoku boards are provided. These directories include easy, medium, hard, expert, and master unsolved sudoku boards. From the directory root…
 
@@ -47,7 +47,7 @@ main
     ├── s1.txt
     └── s2.txt
 ```
-# User Manual
+##  User Manual
 
 The program allows for several different organizations of arguments. If no arguments are given, the program will display no output and close immediately. Otherwise, the user can provide a single argument that is the path to a configuration file. This file **MUST** include two lines…
 
@@ -97,7 +97,7 @@ As an example of the board format, a file representing a valid board can look as
 
 Figure 4: File containing a sudoku board represented in a valid way.
 
-# Performance
+## Performance
 
 Since I had some issues testing the program with just easy through hard sudoku boards, I additionally added expert and master sudoku boards, which my program seems to handle adequately. In the three annotations below, I label the runtime of my program while attempting to solve boards of each type. There are three boards of each type in this case. The first annotation uses no CSP optimization besides simple backtracking. The second shows runtimes while using the minimum remaining values optimization. The last shows the runtimes while using the least constraining value optimization.
 
