@@ -13,48 +13,42 @@ For reference, the directory structure looks as such…
 
 “Sudoku_Solver\\src” --
 ```
-\+---main
-\| +---java
-\| \| \\---com
-\| \| \\---github
-\| \| \\---theshanachie
-\| \| InputIO.java
-\| \| Main.java
-\| \| Sudoku.java
-\| \| SudokuIO.java
-\| \|
-\| \\---resources
-\| \| input.txt
-\| \| output.txt
-\| \| Project_2.pdf
-\| \|
-\| +---easySudoku
-\| \| s0.txt
-\| \| s1.txt
-\| \| s2.txt
-\| \|
-\| +---expertSudoku
-\| \| s0.txt
-\| \| s1.txt
-\| \| s2.txt
-\| \|
-\| +---hardSudoku
-\| \| s0.txt
-\| \| s1.txt
-\| \| s2.txt
-\| \|
-\| +---masterSudoku
-\| \| s0.txt
-\| \| s1.txt
-\| \| s2.txt
-\| \|
-\| \\---medSudoku
-\| s0.txt
-\| s1.txt
-\| s2.txt
-\|
-\\---test
-\\---java
+main
+├── java
+│   ├── com
+│   │   └── github
+│   │       └── theshanachie
+│   ├── InputIO.java
+│   ├── Main.java
+│   ├── Sudoku.java
+│   └── SudokuIO.java
+├── resources
+│   ├── input.txt
+│   ├── output.txt
+│   └── Project_2.pdf
+├── easySudoku
+│   ├── s0.txt
+│   ├── s1.txt
+│   └── s2.txt
+├── expertSudoku
+│   ├── s0.txt
+│   ├── s1.txt
+│   └── s2.txt
+├── hardSudoku
+│   ├── s0.txt
+│   ├── s1.txt
+│   └── s2.txt
+├── masterSudoku
+│   ├── s0.txt
+│   ├── s1.txt
+│   └── s2.txt
+└── medSudoku
+    ├── s0.txt
+    ├── s1.txt
+    └── s2.txt
+
+test
+└── java
 ```
 # User Manual
 
