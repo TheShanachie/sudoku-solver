@@ -12,91 +12,50 @@ The program consists of four major java files. In addition, directories containi
 For reference, the directory structure looks as such…
 
 “Sudoku_Solver\\src” --
-
+```
 \+---main
-
 \| +---java
-
 \| \| \\---com
-
 \| \| \\---github
-
 \| \| \\---theshanachie
-
 \| \| InputIO.java
-
 \| \| Main.java
-
 \| \| Sudoku.java
-
 \| \| SudokuIO.java
-
 \| \|
-
 \| \\---resources
-
 \| \| input.txt
-
 \| \| output.txt
-
 \| \| Project_2.pdf
-
 \| \|
-
 \| +---easySudoku
-
 \| \| s0.txt
-
 \| \| s1.txt
-
 \| \| s2.txt
-
 \| \|
-
 \| +---expertSudoku
-
 \| \| s0.txt
-
 \| \| s1.txt
-
 \| \| s2.txt
-
 \| \|
-
 \| +---hardSudoku
-
 \| \| s0.txt
-
 \| \| s1.txt
-
 \| \| s2.txt
-
 \| \|
-
 \| +---masterSudoku
-
 \| \| s0.txt
-
 \| \| s1.txt
-
 \| \| s2.txt
-
 \| \|
-
 \| \\---medSudoku
-
 \| s0.txt
-
 \| s1.txt
-
 \| s2.txt
-
 \|
-
 \\---test
-
 \\---java
-
+```
 # User Manual
 
 The program allows for several different organizations of arguments. If no arguments are given, the program will display no output and close immediately. Otherwise, the user can provide a single argument that is the path to a configuration file. This file **MUST** include two lines…
